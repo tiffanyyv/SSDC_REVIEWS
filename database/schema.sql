@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS reviews(
   reviewer_name VARCHAR(30) NOT NULL,
   reviewer_email VARCHAR(70) NOT NULL,
   response VARCHAR(200) NOT NULL,
-  helpfulness VARCHAR NOT NULL
+  helpfulness INT DEFAULT 0
 );
 CREATE INDEX review_index ON reviews(product_id);
 COPY reviews(review_id, product_id, rating, review_date, summary, body, recommend, reported, reviewer_name, reviewer_email, response, helpfulness)
