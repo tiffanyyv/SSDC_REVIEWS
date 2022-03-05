@@ -12,11 +12,14 @@ const getReviewsQuery = async (product_id, count, page, sort) => {
   }
 
 // TODO: format date
+// offset ex. count = 2, page = 5
+// 2 * 5 - 2 = 8
+// skip 8 rows before returning the rest of the 2 (last count of 2)
   const results = await pool.query(
     `SELECT product_id AS product,
     (SELECT ${page} AS page),
     (SELECT ${count} AS count),
-      (WITH limitrevs AS (SELECT * FROM reviews WHERE product_id = $1 ${sort} LIMIT ${count})
+      (WITH limitrevs AS (SELECT * FROM reviews WHERE product_id = $1 ${sort} LIMIT ${count} OFFSET ${count * page - count })
       SELECT array_agg
         (json_build_object('review_id', review_id, 'rating', rating, 'summary', summary, 'recommend', recommend, 'response', response, 'body', body, 'date', review_date, 'reviewer_name', reviewer_name, 'helpfulness', helpfulness, 'photos',
           (SELECT coalesce(array_agg(json_build_object('id', photo_id, 'url', photo_url)), '{}')

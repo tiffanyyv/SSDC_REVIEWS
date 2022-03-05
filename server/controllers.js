@@ -6,7 +6,7 @@ module.exports = {
   getReviews: async (req, res) => {
     const { product_id } = req.query;
     const count = req.query.count || 5;
-    const page = req.query.page || 0;
+    const page = req.query.page || 1;
     const sort = req.query.sort || 'newest';
     try {
       const results = await getReviewsQuery(product_id, count, page, sort)
