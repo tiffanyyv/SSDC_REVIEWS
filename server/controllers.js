@@ -10,7 +10,13 @@ module.exports = {
     const sort = req.query.sort || 'newest';
     try {
       const results = await getReviewsQuery(product_id, count, page, sort)
-        res.send(results.rows[0])
+      let response = {
+        product: product_id,
+        page,
+        count: Number(results.rows.length),
+        results: results.rows
+      }
+        res.send(response)
     }
     catch (err) {
       res.send(err)
