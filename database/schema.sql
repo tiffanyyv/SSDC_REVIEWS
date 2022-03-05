@@ -1,4 +1,7 @@
 -- fill in your schema here
+DROP DATABASE IF EXISTS reviews;
+CREATE DATABASE reviews;
+\c reviews;
 -- DROP TABLE IF EXISTS reviews;
 -- DROP TABLE IF EXISTS reviews_photos;
 -- DROP TABLE IF EXISTS characteristics;
@@ -18,6 +21,7 @@ CREATE TABLE IF NOT EXISTS reviews(
   response VARCHAR(200) NOT NULL,
   helpfulness VARCHAR NOT NULL
 );
+CREATE INDEX review_index ON reviews(product_id);
 COPY reviews(review_id, product_id, rating, review_date, summary, body, recommend, reported, reviewer_name, reviewer_email, response, helpfulness)
 FROM '/Users/tiffanyvu/Desktop/sdc/reviews.csv'
 DELIMITER ','
@@ -31,6 +35,7 @@ CREATE TABLE IF NOT EXISTS reviews_photos (
       REFERENCES reviews(review_id)
         ON DELETE CASCADE
         );
+CREATE INDEX photo_review_index ON reviews_photos USING btree (review_id);
 COPY reviews_photos(photo_id, review_id, photo_url)
 FROM '/Users/tiffanyvu/Desktop/sdc/reviews_photos.csv'
 DELIMITER ','

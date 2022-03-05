@@ -7,8 +7,8 @@ router.route('/reviews')
   .post(controllers.postReview)
 
 router.get('/meta', controllers.getReviewMetadata);
-// router.put('/products/:product_id/reviews/:review_id/helpful', controllers.markReviewHelpful);
-// router.put('/products/:product_id/reviews/:review_id/report', controllers.markReviewReport);
+router.put('/reviews/:review_id/helpful', controllers.markReviewHelpful);
+router.put('/reviews/:review_id/report', controllers.markReviewReport);
 
 //added
 

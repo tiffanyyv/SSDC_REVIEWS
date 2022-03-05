@@ -7,7 +7,7 @@ const port = 3000 || process.env.port;
 
 app.use(morgan('dev'));
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 app.use('/api', router);
 
 app.listen(port, () => {
