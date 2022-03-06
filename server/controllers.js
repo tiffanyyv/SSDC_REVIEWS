@@ -1,7 +1,10 @@
 const getReviewsQuery = require('../database/queries/getReviews.js');
 const postReviewQuery = require('../database/queries/postReview.js');
+const postPhotosQuery = require('../database/queries/postPhotos.js');
+const postCharacteristicsQuery = require('../database/queries/postCharacteristics.js');
 const markReviewHelpfulQuery = require('../database/queries/markReviewHelpful.js');
-const markReviewReport = require('../database/queries/markReviewReport.js')
+const markReviewReport = require('../database/queries/markReviewReport.js');
+
 const pool = require('../database/index.js');
 
 
@@ -24,19 +27,28 @@ module.exports = {
         res.send(response)
     }
     catch (err) {
-      res.send(err)
+      res.send('Error getting reviews')
     }
   },
 
   postReview: async (req, res) => {
-    const params = {
+    const reviewObj = {
       ...req.body,
       productId: req.params.product_id
     };
-    try {
 
+    let currentUnixDate = Math.round((new Date()).getTime() / 1000);
+
+
+    try {
+      const results = await postReviewQuery(reviewObj, currentUnixDate)
+      // await postPhotosQuery(reviewObj);
+      // await postCharacteristicsQuery();
+      res.send(results)
     }
     catch (err) {
+      console.log(req.body)
+      console.log(err)
       res.send(err)
     }
 
