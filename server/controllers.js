@@ -1,5 +1,8 @@
-const getReviewsQuery = require('../database/queries/getReviews.js')
-const pool = require('../database/index.js')
+const getReviewsQuery = require('../database/queries/getReviews.js');
+const postReviewQuery = require('../database/queries/postReview.js');
+const markReviewHelpfulQuery = require('../database/queries/markReviewHelpful.js');
+const markReviewReport = require('../database/queries/markReviewReport.js')
+const pool = require('../database/index.js');
 
 
 module.exports = {
@@ -14,7 +17,9 @@ module.exports = {
         product: product_id,
         page,
         count: Number(results.rows.length),
-        results: results.rows
+        results: results.rows.map(row => {
+          return row.json_build_object
+        })
       }
         res.send(response)
     }
@@ -23,24 +28,46 @@ module.exports = {
     }
   },
 
-  postReview: (req, res) => {
+  postReview: async (req, res) => {
     const params = {
       ...req.body,
       productId: req.params.product_id
     };
+    try {
+
+    }
+    catch (err) {
+      res.send(err)
+    }
+
+
   },
 
   getReviewMetadata: (req, res) => {
     const productId = req.params.product_id;
   },
 
-  markReviewHelpful: (req, res) => {
-    const reviewId = req.params.review_id;
+  markReviewHelpful: async (req, res) => {
+    const { review_id } = req.params;
+    try {
+      const results = markReviewHelpfulQuery(review_id);
+      res.send('Marked helpful!')
+    }
+    catch (err) {
+      res.send('Error marking helpful')
+    }
 
   },
 
-  markReviewReport: (req, res) => {
-    const reviewId = req.params.review_id;
+  markReviewReport: async (req, res) => {
+    const { review_id } = req.params;
+    try {
+      const results = markReviewReportQuery(review_id);
+      res.send('Reported review!')
+    }
+    catch (err) {
+      res.send('Error reporting review')
+    }
 
   }
 
