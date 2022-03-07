@@ -42,14 +42,10 @@ module.exports = {
 
     try {
       const results = await postReviewQuery(reviewObj, currentUnixDate)
-      // await postPhotosQuery(reviewObj);
-      // await postCharacteristicsQuery();
-      res.send(results)
+      res.send('Success posting review')
     }
     catch (err) {
-      console.log(req.body)
-      console.log(err)
-      res.send(err)
+      res.send('Error posting review')
     }
 
 

@@ -12,6 +12,7 @@ const getReviewsQuery = async (product_id, count, page, sort) => {
   }
 
   // avoid using template literals
+  // format date seconds and Z at the end
   const results = await pool.query(
     `SELECT
         json_build_object(
@@ -21,7 +22,7 @@ const getReviewsQuery = async (product_id, count, page, sort) => {
           'recommend', r.recommend,
           'response', r.response,
           'body', r.body,
-          'date', to_timestamp(r.review_date),
+          'date', to_char(to_timestamp(r.review_date), 'DD-MM-YYYY"T"HH24:MI:SS.MS"Z"'),
           'reviewer_name', r.reviewer_name,
           'helpfulness', r.helpfulness,
           'photos',
