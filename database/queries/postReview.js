@@ -23,7 +23,7 @@ const postReviewQuery = async (
       try {
         if (photos.length > 0) {
           await photos.forEach(photo => {
-            pool.query(`INSERT into reviews_photos (review_id, photo_url) VALUES ($1, $2) RETURNING *`, [review_id, photo])
+            pool.query(`INSERT into reviews_photos (review_id, photo_url) VALUES ($1, $2)`, [review_id, photo])
           })
         }
         for (let [characteristic, rating] of Object.entries(characteristics)) {

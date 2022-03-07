@@ -1,9 +1,8 @@
 const getReviewsQuery = require('../database/queries/getReviews.js');
 const postReviewQuery = require('../database/queries/postReview.js');
-const postPhotosQuery = require('../database/queries/postPhotos.js');
-const postCharacteristicsQuery = require('../database/queries/postCharacteristics.js');
 const markReviewHelpfulQuery = require('../database/queries/markReviewHelpful.js');
 const markReviewReport = require('../database/queries/markReviewReport.js');
+const getMetadataQuery = require('../database/queries/getMetadata.js');
 
 const pool = require('../database/index.js');
 
@@ -33,15 +32,14 @@ module.exports = {
 
   postReview: async (req, res) => {
     const reviewObj = {
-      ...req.body,
-      productId: req.params.product_id
+      ...req.body
     };
 
     let currentUnixDate = Math.round((new Date()).getTime() / 1000);
 
 
     try {
-      const results = await postReviewQuery(reviewObj, currentUnixDate)
+      await postReviewQuery(reviewObj, currentUnixDate)
       res.send('Success posting review')
     }
     catch (err) {
@@ -51,14 +49,20 @@ module.exports = {
 
   },
 
-  getReviewMetadata: (req, res) => {
-    const productId = req.params.product_id;
+  getReviewMetadata: async (req, res) => {
+    const { product_id } = req.params;
+    try {
+      await getMetadataQuery(product_id)
+    }
+    catch (err) {
+      res.send('Error getting metadata')
+    }
   },
 
   markReviewHelpful: async (req, res) => {
     const { review_id } = req.params;
     try {
-      const results = markReviewHelpfulQuery(review_id);
+      markReviewHelpfulQuery(review_id);
       res.send('Marked helpful!')
     }
     catch (err) {
@@ -70,7 +74,7 @@ module.exports = {
   markReviewReport: async (req, res) => {
     const { review_id } = req.params;
     try {
-      const results = markReviewReportQuery(review_id);
+      markReviewReportQuery(review_id);
       res.send('Reported review!')
     }
     catch (err) {
