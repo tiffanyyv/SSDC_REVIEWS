@@ -13,7 +13,7 @@ const postReviewQuery = async (
   }, currentUnixDate) => {
 
 
-  const results = await pool.query(
+  await pool.query(
     `INSERT INTO reviews
     (product_id, rating, review_date, summary, body, recommend, reviewer_name, reviewer_email)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING review_id`

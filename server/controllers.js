@@ -12,7 +12,7 @@ module.exports = {
     const { product_id } = req.query;
     const count = req.query.count || 5;
     const page = req.query.page || 1;
-    const sort = req.query.sort || 'newest';
+    const sort = req.query.sort || 'relevant';
     try {
       const results = await getReviewsQuery(product_id, count, page, sort)
       let response = {
@@ -40,7 +40,7 @@ module.exports = {
 
     try {
       await postReviewQuery(reviewObj, currentUnixDate)
-      res.send('Success posting review')
+      res.send('Posted review!')
     }
     catch (err) {
       res.send('Error posting review')
@@ -50,12 +50,17 @@ module.exports = {
   },
 
   getReviewMetadata: async (req, res) => {
-    const { product_id } = req.params;
+    const { product_id } = req.query;
     try {
-      await getMetadataQuery(product_id)
+      const results = await getMetadataQuery(product_id);
+      // let response = {
+      //   product_id,
+      //   results: results.rows[0]
+      // }
+      res.send(results.rows[0])
     }
     catch (err) {
-      res.send('Error getting metadata')
+      res.send(err.message)
     }
   },
 
