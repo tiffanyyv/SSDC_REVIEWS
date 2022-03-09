@@ -7,7 +7,7 @@ export const requests = new Counter('http_reqs');
 
 export const options = {
   vus: 100,
-  duration: '15s',
+  duration: '30s',
   // stages: [
   //   { duration: '5s', target: 100 },
   //   { duration: '10s', target: 500 },
