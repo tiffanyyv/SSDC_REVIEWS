@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS reviews(
 );
 CREATE INDEX review_index ON reviews(product_id);
 COPY reviews(review_id, product_id, rating, review_date, summary, body, recommend, reported, reviewer_name, reviewer_email, response, helpfulness)
-FROM '/home/ubuntu/sdc/reviews.csv'
+FROM '/Users/tiffanyvu/Desktop/sdc/reviews.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS reviews_photos (
         );
 CREATE INDEX photo_review_index ON reviews_photos USING btree (review_id);
 COPY reviews_photos(photo_id, review_id, photo_url)
-FROM '/home/ubuntu/sdc/reviews_photos.csv'
+FROM '/Users/tiffanyvu/Desktop/sdc/reviews_photos.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS characteristics (
 CREATE INDEX characteristic_index ON characteristics(product_id);
 CREATE INDEX characteristic_id_index ON characteristics(characteristic_id);
 COPY characteristics(characteristic_id, product_id, characteristic_name)
-FROM '/home/ubuntu/sdc/characteristics.csv'
+FROM '/Users/tiffanyvu/Desktop/sdc/characteristics.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS characteristic_reviews (
 CREATE INDEX characteristic_review_index ON characteristic_reviews(review_id);
 CREATE INDEX characteristic_review_id_index ON characteristic_reviews USING btree (characteristic_id);
 COPY characteristic_reviews(metadata_id, characteristic_id, review_id, characteristic_value)
-FROM '/home/ubuntu/sdc/characteristic_reviews.csv'
+FROM '/Users/tiffanyvu/Desktop/sdc/characteristic_reviews.csv'
 DELIMITER ','
 CSV HEADER;
 
