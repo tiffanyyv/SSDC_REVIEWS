@@ -17,8 +17,8 @@ const postReviewQuery = async (
     `INSERT INTO reviews
     (product_id, rating, review_date, summary, body, recommend, reviewer_name, reviewer_email)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING review_id`
-  , [product_id, rating, currentUnixDate, summary, body, recommend, name, email])
-  .then(async ({ rows }) => {
+    , [product_id, rating, currentUnixDate, summary, body, recommend, name, email])
+    .then(async ({ rows }) => {
       const review_id = rows[0].review_id;
       try {
         if (photos.length > 0) {
@@ -35,7 +35,7 @@ const postReviewQuery = async (
         console.log('error posting review')
       }
     }
-  )
+    )
 
 }
 

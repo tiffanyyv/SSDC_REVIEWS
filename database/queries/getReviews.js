@@ -8,7 +8,7 @@ const getReviewsQuery = async (product_id, count, page, sort) => {
     sort = 'ORDER BY helpfulness DESC';
   }
   if (sort === 'relevant') {
-    sort = `ORDER BY helpfulness DESC, reviews.review_date DESC`;
+    sort = `ORDER BY helpfulness DESC, review_date ASC`;
   }
 
   const results = await pool.query(
@@ -33,7 +33,6 @@ const getReviewsQuery = async (product_id, count, page, sort) => {
           AS photos FROM reviews_photos p WHERE r.review_id = p.review_id)
         )
     FROM reviews r WHERE product_id = $1 AND reported = false ${sort} LIMIT $2 OFFSET ${count * page - count}`
-
     , [product_id, count])
   return results;
 
