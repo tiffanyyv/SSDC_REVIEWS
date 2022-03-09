@@ -71,3 +71,8 @@ COPY characteristic_reviews(metadata_id, characteristic_id, review_id, character
 FROM '/Users/tiffanyvu/Desktop/sdc/characteristic_reviews.csv'
 DELIMITER ','
 CSV HEADER;
+
+
+SELECT setval(pg_get_serial_sequence('reviews', 'review_id'), (SELECT MAX(review_id) FROM reviews)+1);
+SELECT setval(pg_get_serial_sequence('reviews_photos', 'photo_id'), (SELECT MAX(photo_id) FROM reviews_photos)+1);
+SELECT setval(pg_get_serial_sequence('characteristic_reviews', 'metadata_id'), (SELECT MAX(metadata_id) FROM characteristic_reviews)+1);

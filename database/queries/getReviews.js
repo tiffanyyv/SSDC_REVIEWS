@@ -11,8 +11,6 @@ const getReviewsQuery = async (product_id, count, page, sort) => {
     sort = `ORDER BY helpfulness DESC, reviews.review_date DESC`;
   }
 
-  // avoid using template literals
-  // format date seconds and Z at the end
   const results = await pool.query(
     `SELECT
         json_build_object(
