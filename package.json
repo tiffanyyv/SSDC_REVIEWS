@@ -4,7 +4,9 @@
   "description": "",
   "main": "config.js",
   "scripts": {
-    "start": "nodemon server/index.js"
+    "start": "nodemon server/index.js",
+    "k6": "k6 run spec/script.js",
+    "load-db": "psql postgres -U tiffanyvu -a -f schema.sql"
   },
   "dependencies": {
     "axios": "^0.26.0",
