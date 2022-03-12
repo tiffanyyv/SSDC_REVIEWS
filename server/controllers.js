@@ -26,7 +26,7 @@ module.exports = {
       res.send(response)
     }
     catch (err) {
-      res.send(err.message)
+      res.send('Error getting reviews')
     }
   },
 

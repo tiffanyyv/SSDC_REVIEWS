@@ -15,8 +15,6 @@ const pool = new Pool({
 //     const res = await client.query('SELECT * FROM characteristic_reviews LIMIT 5')
 //     console.log(res.rows)
 //   } finally {
-//     // Make sure to release the client before any error handling,
-//     // just in case the error handling itself throws an error.
 //     client.release()
 //   }
 // })().catch(err => console.log(err.stack))

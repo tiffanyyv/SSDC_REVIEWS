@@ -7,7 +7,7 @@
     "start": "nodemon server/index.js",
     "k6": "k6 run spec/script.js",
     "build": "psql -f ./database/schema.sql -p 5432 postgres",
-    "build-edc": "sudo -u postgres psql -f ./database/schema_aws.sql -p 5432 postgres"
+    "build-ec2": "sudo -u postgres psql -f ./database/schema_aws.sql -p 5432 postgres"
   },
   "dependencies": {
     "axios": "^0.26.0",

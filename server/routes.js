@@ -2,7 +2,6 @@ const controllers = require('./controllers.js');
 const router = require('express').Router();
 
 
-
 router.get(`/${process.env.LOADERIO_TOKEN}`, async (req, res) => {
   try {
     res.send(process.env.LOADERIO_TOKEN);
