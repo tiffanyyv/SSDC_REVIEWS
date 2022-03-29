@@ -1,4 +1,4 @@
-# SSDC_REVIEWS
+# STEELIX-SDC RATINGS & REVIEWS
 This is the endpoint for the Ratings & Reviews module.
 
 ## Setup
